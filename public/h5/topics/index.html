@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript" src="../js/jquery-3.5.1.min.js"></script>
+    <script type="text/javascript" src="../js/common.js"></script>
+    <style>
+        .container{
+            width: 95%;
+            margin: auto;
+        }
+
+        .topic-list{
+            border: 0px solid red;
+            margin: 10px 0;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="container" offset="0">
+
+    <div class="topic-list">
+        <h3>标题</h3>
+        <p>内容</p>
+    </div>
+
+</div>
+</body>
+
+
+<script type="text/javascript">
+
+    $(document).ready(function(){
+
+        fnGetTopics();
+
+        // 触底加载
+        $(window).scroll(function () {
+            var scrollTop = $(this).scrollTop();
+            var windowHeight = $(this).height();
+            var scrollHeight = $(document).height();
+            // console.log(scrollTop, windowHeight, scrollHeight);
+            if (scrollTop + windowHeight == scrollHeight - 1) {
+                // 此处是滚动条到底部时候触发的事件，在这里写要加载的数据，或者是拉动滚动条的操作
+                fnGetTopics();
+            }
+        });
+
+    });
+
+    function fnGetTopics() {
+
+        var offset = $('.container').attr('offset');
+
+        $.ajax({
+            url: base_request_url + 'topics',
+            type: 'get',
+            data:{limit: 20, offset: offset},
+            success: function (res) {
+                console.log(res);
+
+                $('.container').attr('offset', res.meta.offset);
+
+                var html = '';
+                for(var i in res.data) {
+                    html += '<div class="topic-list"><h3>' + res.data[i].id + '、' + res.data[i].title + '</h3><p>' + res.data[i].content + '</p></div>';
+                }
+
+                if (offset == 0) {
+                    $('.container').html(html)
+                } else {
+                    $('.container').append(html)
+                }
+
+            }
+        })
+
+    }
+</script>
+
+
+</html>
