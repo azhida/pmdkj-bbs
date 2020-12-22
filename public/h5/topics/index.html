@@ -23,7 +23,7 @@
 <div class="container" offset="0">
 
     <div class="topic-list">
-        <h3>标题</h3>
+        <h3 onclick="fnOpenTopicEditPage('1');">标题</h3>
         <p>内容</p>
     </div>
 
@@ -51,6 +51,11 @@
 
     });
 
+    function fnOpenTopicEditPage(id) {
+        var tempwindow = window.open('_blank');
+        tempwindow.location = './show.html?id=' + id;
+    }
+
     function fnGetTopics() {
 
         var offset = $('.container').attr('offset');
@@ -66,7 +71,7 @@
 
                 var html = '';
                 for(var i in res.data) {
-                    html += '<div class="topic-list"><h3>' + res.data[i].id + '、' + res.data[i].title + '</h3><p>' + res.data[i].content + '</p></div>';
+                    html += '<div class="topic-list"><h3 onclick="fnOpenTopicEditPage(' + res.data[i].id + ')">' + res.data[i].id + '、' + res.data[i].title + '</h3><p>' + res.data[i].content + '</p></div>';
                 }
 
                 if (offset == 0) {

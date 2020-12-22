@@ -99,6 +99,8 @@ class TopicsController extends Controller
     public function show($id)
     {
         //
+        $topic = Topic::query()->find($id);
+        return $this->success('', $topic);
     }
 
     /**

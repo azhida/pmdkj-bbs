@@ -23,6 +23,7 @@ Route::group(['namespace' => 'App\Http\Controllers\Api'], function () {
 
     Route::get('topics', 'TopicsController@index');
     Route::post('topics', 'TopicsController@store');
+    Route::get('topics/{id}', 'TopicsController@show');
 
 });
 
