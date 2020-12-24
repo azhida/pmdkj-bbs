@@ -15,7 +15,15 @@ class TopicsController extends Controller
      */
     public function index(Request $request)
     {
-        $topics = Topic::query()->offset($this->getOffset())->limit($this->getLimit())->get();
+        $search_word = $request->search_word ?? '';
+        $query = Topic::query();
+        if ($search_word) {
+            $query->where(function ($query) use ($search_word) {
+                $query->where('title', 'like', "%{$search_word}%");
+                $query->orWhere('content', 'like', "%{$search_word}%");
+            });
+        }
+        $topics = $query->offset($this->getOffset())->limit($this->getLimit())->get();
         $meta = $request->all();
         $meta['offset'] += count($topics);
         return $this->success('', $topics, $meta);

@@ -6,6 +6,34 @@
     <script type="text/javascript" src="../js/jquery-3.5.1.min.js"></script>
     <script type="text/javascript" src="../js/common.js"></script>
     <style>
+        html,body{
+            font-size: 16px;
+        }
+        .search-div{
+            width: 95vw;
+            height: 10vw;
+            border: 1px solid gray;
+            border-radius: 5px;
+            margin: auto;
+            position: relative;
+        }
+        .search-div input{
+            left: 5vw;
+            width: 80%;
+            outline: none;
+            border: 0;
+            margin-left: 2vw;
+            height: 9vw;
+            font-size: 26px;
+
+        }
+        .search-div span{
+            position: absolute;
+            right: 2vw;
+            height: 10vw;
+            line-height: 10vw;
+            font-size: 26px;
+        }
         .container{
             width: 95%;
             margin: auto;
@@ -19,6 +47,12 @@
     </style>
 </head>
 <body>
+
+<div class="search-div">
+    <input type="text" placeholder="输入搜索内容">
+    <span onclick="fnSearTopics();">搜索</span>
+
+</div>
 
 <div class="container" offset="0">
 
@@ -56,14 +90,23 @@
         tempwindow.location = './show.html?id=' + id;
     }
 
+    function fnSearTopics() {
+
+        $('.container').attr('offset', 0);
+        fnGetTopics();
+
+    }
+
     function fnGetTopics() {
+
+        var search_word = $('input').val();
 
         var offset = $('.container').attr('offset');
 
         $.ajax({
             url: base_request_url + 'topics',
             type: 'get',
-            data:{limit: 20, offset: offset},
+            data:{limit: 20, offset: offset, search_word: search_word},
             success: function (res) {
                 console.log(res);
 
