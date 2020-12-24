@@ -19,7 +19,8 @@ class TopicsController extends Controller
         $query = Topic::query();
         if ($search_word) {
             $query->where(function ($query) use ($search_word) {
-                $query->where('title', 'like', "%{$search_word}%");
+                $query->where('id', $search_word);
+                $query->orWhere('title', 'like', "%{$search_word}%");
                 $query->orWhere('content', 'like', "%{$search_word}%");
             });
         }
