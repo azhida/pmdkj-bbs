@@ -67,7 +67,7 @@
             success: function (res) {
                 if (res.code == '0') {
                     $('h3').text(res.data.title);
-                    $('p').text(res.data.content);
+                    $('p').html(res.data.content);
                 } else {
                     alert(res.msg);
                 }

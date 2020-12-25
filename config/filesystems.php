@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'default' => env('FILESYSTEM_DRIVER', 'local'),
+    'default' => env('FILESYSTEM_DRIVER', 'oss'),
 
     /*
     |--------------------------------------------------------------------------
@@ -50,6 +50,18 @@ return [
             'bucket' => env('AWS_BUCKET'),
             'url' => env('AWS_URL'),
             'endpoint' => env('AWS_ENDPOINT'),
+        ],
+
+        'oss' => [
+            'driver'     => 'oss',
+            'access_id'  => env('OSS_ACCESS_ID','your id'),
+            'access_key' => env('OSS_ACCESS_KEY','your key'),
+            'bucket'     => env('OSS_BUCKET','your bucket'),
+            'endpoint'   => env('OSS_ENDPOINT','your endpoint'),
+            'ssl'        => false, // true to use 'https://' and false to use 'http://'. default is false,
+            'cdnDomain'  => '',
+            'isCName'    => false,
+            'debug'      => true
         ],
 
     ],
