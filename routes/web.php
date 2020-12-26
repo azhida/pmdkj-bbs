@@ -17,4 +17,4 @@ Route::redirect('/', '/h5/topics/index.html');
 
 Route::any('wechat', '\App\Http\Controllers\WeChatController@serve');
 Route::get('wechat/getMenus', '\App\Http\Controllers\WeChatController@getMenus');
-Route::get('wechat/createMenus', '\App\Http\Controllers\WeChatController@createMenus');
+Route::post('wechat/createMenus', '\App\Http\Controllers\WeChatController@createMenus');
