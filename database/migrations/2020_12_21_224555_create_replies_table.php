@@ -19,6 +19,7 @@ class CreateRepliesTable extends Migration
             $table->unsignedBigInteger('topic_id')->comment('话题ID，关联 topics.id');
             $table->unsignedBigInteger('parent_id')->default(0)->comment('父级ID，关联 replies.id');
             $table->longText('content')->comment('回复内容');
+            $table->boolean('is_best')->default(false)->comment('是否最佳');
             $table->timestamps();
         });
         \DB::statement("ALTER TABLE `replies` comment '话题回复表'");

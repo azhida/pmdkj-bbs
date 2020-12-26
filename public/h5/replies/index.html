@@ -5,31 +5,66 @@
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, viewport-fit=cover" name="viewport" />
     <title>话题回复列表</title>
     <link rel="stylesheet" href="https://res.wx.qq.com/open/libs/weui/2.4.1/weui.min.css">
+    <style>
+        #ft_button{
+            border: 0px solid red;
+            position: fixed;
+            bottom: 0;
+            width: 100vw;
+            background-color: gray;
+            color: #fff;
+        }
+    </style>
 </head>
 <body>
 
-<script type="text/x-dot-template" id="topicTemplate">
+<div class="weui-panel weui-panel_access">
 
-    <div class="weui-panel">
-        <div class="weui-panel__hd">{{=it.title}}</div>
-        <div class="weui-panel__bd">
+    <div class="weui-panel__hd"></div>
 
-            {{~it.replies:value:index}}
-            <div class="weui-media-box weui-media-box_text">
-                <h4 class="weui-media-box__title">用户{{=value.user_id}}</h4>
-                <p class="weui-media-box__desc">{{=value.content}}</p>
-                <ul class="weui-media-box__info">
-                    <li class="weui-media-box__info__meta">文字来源</li>
-                    <li class="weui-media-box__info__meta">时间</li>
-                    <li class="weui-media-box__info__meta weui-media-box__info__meta_extra">点赞2000</li>
-                </ul>
-            </div>
-            {{~}}
+    <div class="weui-panel__bd">
 
-        </div>
+<!--        <div class="weui-media-box weui-media-box_text">-->
+<!--            <h4 class="weui-media-box__title">标题一</h4>-->
+<!--            <p class="weui-media-box__desc">由各种物质组成的巨型球状天体，叫做星球。星球有一定的形状，有自己的运行轨道。</p>-->
+<!--            <ul class="weui-media-box__info">-->
+<!--                <li class="weui-media-box__info__meta">文字来源</li>-->
+<!--                <li class="weui-media-box__info__meta">时间</li>-->
+<!--                <li class="weui-media-box__info__meta weui-media-box__info__meta_extra">其它信息</li>-->
+<!--            </ul>-->
+<!--        </div>-->
+
     </div>
 
+</div>
+
+<script type="text/x-dot-template" id="repliesTemplate">
+
+    {{~it:value}}
+
+    <div class="weui-media-box weui-media-box_text">
+        <h4 class="weui-media-box__title">用户：{{=value.user_id}}</h4>
+        <p class="weui-media-box__desc">{{=value.content}}</p>
+        <ul class="weui-media-box__info">
+            <li class="weui-media-box__info__meta">文字来源</li>
+            <li class="weui-media-box__info__meta">时间</li>
+            <li class="weui-media-box__info__meta weui-media-box__info__meta_extra">点赞300</li>
+            {{? value.is_best}}
+            <li class="weui-media-box__info__meta weui-media-box__info__meta_extra" style="color: #ff0000;">当前最佳</li>
+            {{??}}
+            <li class="weui-media-box__info__meta weui-media-box__info__meta_extra" onclick="fnSetBestReply('{{=value.id}}');">设为最佳</li>
+            {{?}}
+        </ul>
+    </div>
+
+    {{~}}
+
 </script>
+
+<a href="javascript:" class="weui-btn_cell weui-btn_cell-primary" id="ft_button" >
+    <img class="weui-btn_cell__icon" src="../images/pinglun-128-128.png">
+    我来评论
+</a>
 
 </body>
 
@@ -45,6 +80,22 @@
 
     });
 
+    // 设置该评论为最佳评论
+    function fnSetBestReply(id) {
+        $.ajax({
+            url: base_request_url + 'replies/' + id + '/setBest',
+            type: 'get',
+            success: function (res) {
+                // console.log(res);
+                if (res.code == '0') {
+                    window.location.reload();
+                } else {
+                    alert(res.msg);
+                }
+            }
+        })
+    }
+
     function fnGetTopicReplies() {
 
         var topic_id = fnGetUrlQueryString('topic_id');
@@ -53,12 +104,20 @@
             url: base_request_url + 'replies?topic_id=' + topic_id,
             type: 'get',
             success: function (res) {
-                console.log(res);
+                // console.log(res);
 
                 if (res.code == '0') {
-                    var tmpltxt = doT.template(document.getElementById("topicTemplate").innerHTML);//生成模板方法
-                    var html = tmpltxt(res.data); // 数据渲染
-                    $('body').html(html);
+
+                    $('.weui-panel__hd').text(res.data.title);
+
+                    var tmpltxt = doT.template(document.getElementById("repliesTemplate").innerHTML);//生成模板方法
+                    var html = tmpltxt(res.data.replies); // 数据渲染
+                    $('.weui-panel__bd').before(html);
+
+                    // 底部 加高
+                    var ft_button_dom_height = $('#ft_button').innerHeight();
+                    // console.log(ft_button_dom_height);
+                    $('.weui-panel').css('margin-bottom', ft_button_dom_height);
 
                 } else {
                     alert(res.msg);

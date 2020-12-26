@@ -14,5 +14,10 @@ class Reply extends Model
         'topic_id',
         'parent_id',
         'content',
+        'is_best',
+    ];
+
+    protected $casts = [
+        'is_best' => 'boolean'
     ];
 }

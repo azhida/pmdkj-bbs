@@ -86,4 +86,12 @@ class RepliesController extends Controller
     {
         //
     }
+
+    // 设置最佳评论
+    public function setBest(Reply $reply)
+    {
+        Reply::query()->where('topic_id', $reply->topic_id)->update(['is_best' => false]);
+        $reply->update(['is_best' => true]);
+        return $this->success();
+    }
 }
