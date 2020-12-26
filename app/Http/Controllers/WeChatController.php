@@ -22,4 +22,20 @@ class WeChatController extends Controller
 
         return $app->server->serve();
     }
+
+    // 获取自定义菜单
+    public function getMenus()
+    {
+        $app = app('wechat.official_account');
+        $list = $app->getMenus();
+        dd($list);
+    }
+
+    // 获取自定义菜单
+    public function createMenus(Request $request)
+    {
+        $app = app('wechat.official_account');
+        $list = $app->createMenus($request->all());
+        return $list;
+    }
 }
