@@ -14,3 +14,5 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::redirect('/', '/h5/topics/index.html');
+
+Route::any('/wechat', 'WeChatController@serve');
