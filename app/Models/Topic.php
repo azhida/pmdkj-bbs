@@ -20,4 +20,9 @@ class Topic extends Model
     {
         return $date->format($this->dateFormat ?: 'Y-m-d H:i:s');
     }
+
+    public function replies()
+    {
+        return $this->hasMany(Reply::class);
+    }
 }

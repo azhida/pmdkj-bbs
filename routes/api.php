@@ -26,6 +26,7 @@ Route::group(['namespace' => 'App\Http\Controllers\Api'], function () {
     Route::get('topics/{id}', 'TopicsController@show');
     Route::redirect('addTopicTitles', '/h5/topics/addTitles.html');
 
+    Route::get('replies', 'RepliesController@index');
 });
 
 
