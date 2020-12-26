@@ -1,4 +1,5 @@
-var base_request_url = 'http://pmdkj-bbs.test/api/';
+// var base_request_url = 'http://pmdkj-bbs.test/api/';
+var base_request_url = 'http://bbs.pmdkj.vip/api/';
 
 // 接收 url参数
 function fnGetUrlQueryString(name) {
