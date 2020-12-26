@@ -87,11 +87,10 @@
             .on('input', function(){
                 if(this.value.length) {
                     $searchResult.show();
-
-                    fnSearTopics();
                 } else {
                     $searchResult.hide();
                 }
+                fnSearTopics();
             })
         ;
         $searchClear.on('click', function(){
