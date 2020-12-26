@@ -41,6 +41,7 @@ class TopicsController extends Controller
     }
 
     /**
+     * 这里只写入 title这个字段，content字段是通过 评论 选择后写入的
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -50,7 +51,11 @@ class TopicsController extends Controller
     {
         if ($request->title) {
             $titles = explode(';', $request->title);
-        } else {
+        } else
+        if ($request->titles) {
+            $titles = explode("\n", $request->titles);
+        }
+        else {
             // 读文件
             $titles = file_get_contents($request->file('file'));
             $titles = explode("\r\n", $titles);
@@ -145,4 +150,5 @@ class TopicsController extends Controller
     {
         //
     }
+
 }
