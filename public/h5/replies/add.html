@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, viewport-fit=cover" name="viewport" />
+    <title>发表回复</title>
+    <link rel="stylesheet" href="https://res.wx.qq.com/open/libs/weui/2.4.1/weui.min.css">
+    <style>
+        #ft_button{
+            border: 0px solid red;
+            position: fixed;
+            bottom: 0;
+            width: 100vw;
+            background-color: gray;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+
+<div class="weui-form__control-area">
+    <div class="weui-cells__group weui-cells__group_form">
+        <div class="weui-cells__title"></div>
+        <div class="weui-cells weui-cells_form">
+            <div class="weui-cell ">
+                <div class="weui-cell__bd">
+                    <textarea class="weui-textarea" placeholder="请输入回复内容" rows="15"></textarea>
+                    <div class="weui-textarea-counter"><span>0</span>/200</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<a href="javascript:" class="weui-btn_cell weui-btn_cell-primary" id="ft_button" onclick="fnPostReply();">
+    发布
+</a>
+
+</body>
+
+<script type="text/javascript" src="../js/jquery-3.5.1.min.js"></script>
+<script type="text/javascript" src="../js/doT.min.js"></script>
+<script type="text/javascript" src="../js/common.js"></script>
+
+<script type="text/javascript">
+
+    $(document).ready(function(){
+
+        fnGetTopic();
+
+    });
+
+    // 设置该评论为最佳评论
+    function fnGetTopic() {
+        var topic_id = fnGetUrlQueryString('topic_id');
+        $.ajax({
+            url: base_request_url + 'topics/' + topic_id,
+            type: 'get',
+            success: function (res) {
+                console.log(res);
+                if (res.code == '0') {
+                    $('.weui-cells__title').text(res.data.id + '、' + res.data.title);
+                } else {
+                    alert(res.msg);
+                }
+            }
+        })
+    }
+
+    function fnPostReply() {
+
+        var topic_id = fnGetUrlQueryString('topic_id');
+        var content = $('textarea').val();
+
+        $.ajax({
+            url: base_request_url + 'replies',
+            type: 'post',
+            data: {topic_id: topic_id, content: content},
+            success: function (res) {
+                console.log(res);
+
+                if (res.code == '0') {
+
+                    $('.weui-panel__hd').text(res.data.id + '、' + res.data.title);
+
+                    var tmpltxt = doT.template(document.getElementById("repliesTemplate").innerHTML);//生成模板方法
+                    var html = tmpltxt(res.data.replies); // 数据渲染
+                    $('.weui-panel__bd').before(html);
+
+                    // 底部 加高
+                    var ft_button_dom_height = $('#ft_button').innerHeight();
+                    // console.log(ft_button_dom_height);
+                    $('.weui-panel').css('margin-bottom', ft_button_dom_height);
+
+                } else {
+                    alert(res.msg);
+                }
+
+            }
+        })
+
+    }
+</script>
+
+
+</html>

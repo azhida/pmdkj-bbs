@@ -39,7 +39,16 @@ class RepliesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $topic_id = $request->topic_id ?? 0;
+        $content = $request->content ?? '';
+        $reply = Reply::query()->create([
+            'user_id' => 1,
+            'topic_id' => $topic_id,
+            'parent_id' => 0,
+            'content' => $content,
+            'is_best' => false,
+        ]);
+        return $this->success('', $reply);
     }
 
     /**
@@ -92,6 +101,7 @@ class RepliesController extends Controller
     {
         Reply::query()->where('topic_id', $reply->topic_id)->update(['is_best' => false]);
         $reply->update(['is_best' => true]);
+        $reply->topic()->update(['content' => $reply->content]);
         return $this->success();
     }
 }

@@ -27,6 +27,7 @@ Route::group(['namespace' => 'App\Http\Controllers\Api'], function () {
     Route::redirect('addTopicTitles', '/h5/topics/addTitles.html');
 
     Route::get('replies', 'RepliesController@index');
+    Route::post('replies', 'RepliesController@store');
     Route::get('replies/{reply}/setBest', 'RepliesController@setBest'); // 设置最佳回复
 });
 

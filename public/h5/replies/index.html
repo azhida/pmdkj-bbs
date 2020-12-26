@@ -61,7 +61,7 @@
 
 </script>
 
-<a href="javascript:" class="weui-btn_cell weui-btn_cell-primary" id="ft_button" >
+<a href="javascript:" class="weui-btn_cell weui-btn_cell-primary" id="ft_button" onclick="fnOpenReplyAddPage();">
     <img class="weui-btn_cell__icon" src="../images/pinglun-128-128.png">
     我来评论
 </a>
@@ -79,6 +79,12 @@
         fnGetTopicReplies();
 
     });
+
+    // 打开 发布回复页面
+    function fnOpenReplyAddPage() {
+        var topic_id = fnGetUrlQueryString('topic_id');
+        window.location.href = './add.html?topic_id=' + topic_id;
+    }
 
     // 设置该评论为最佳评论
     function fnSetBestReply(id) {
@@ -108,7 +114,7 @@
 
                 if (res.code == '0') {
 
-                    $('.weui-panel__hd').text(res.data.title);
+                    $('.weui-panel__hd').text(res.data.id + '、' + res.data.title);
 
                     var tmpltxt = doT.template(document.getElementById("repliesTemplate").innerHTML);//生成模板方法
                     var html = tmpltxt(res.data.replies); // 数据渲染

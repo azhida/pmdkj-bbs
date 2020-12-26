@@ -20,4 +20,9 @@ class Reply extends Model
     protected $casts = [
         'is_best' => 'boolean'
     ];
+
+    public function topic()
+    {
+        return $this->belongsTo(Topic::class);
+    }
 }
