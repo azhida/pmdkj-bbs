@@ -15,4 +15,4 @@ use Illuminate\Support\Facades\Route;
 
 Route::redirect('/', '/h5/topics/index.html');
 
-Route::any('/wechat', 'WeChatController@serve');
+Route::any('wechat', '\App\Http\Controllers\WeChatController@serve');
