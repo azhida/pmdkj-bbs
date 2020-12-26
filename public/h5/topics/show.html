@@ -3,56 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <title>话题详情</title>
-    <script type="text/javascript" src="../js/jquery-3.5.1.min.js"></script>
-    <script type="text/javascript" src="../js/common.js"></script>
-    <style>
-
-        .left{
-            float: left;
-        }
-        .right{
-            float: right;
-        }
-        .clear{
-            clear: both;
-        }
-
-        .header{
-            border-bottom: 1px solid gray;
-            position: fixed;
-            top: 0;
-            width: 100vw;
-            height: 10vw;
-            background-color: #fff;
-        }
-        .header img{
-            width: 5vw;
-            height: 5vw;
-            padding: 2.5vw;
-        }
-        .container{
-            width: 95vw;
-            margin: 12vw auto;
-        }
-    </style>
+    <link rel="stylesheet" href="https://res.wx.qq.com/open/libs/weui/2.4.1/weui.min.css">
 </head>
 <body>
 
-<div class="header">
-    <img onclick="window.close();" class="left" src="../images/back-128-128.png" alt="返回">
-    <img onclick="location.reload();" class="right" src="../images/flush-128-128.png" alt="刷新">
-    <div class="clear"></div>
-</div>
 
-<div class="container">
-
-    <h3></h3>
-    <p></p>
-
+<div class="page__bd">
+    <article class="weui-article">
+        <section>
+            <section>
+                <h3>1.2 节标题</h3>
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                    cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+                    proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                </p>
+            </section>
+        </section>
+    </article>
 </div>
 
 </body>
 
+<script type="text/javascript" src="../js/jquery-3.5.1.min.js"></script>
+<script type="text/javascript" src="../js/common.js"></script>
 <script type="text/javascript">
     $().ready(function () {
         fnGetTopic();
