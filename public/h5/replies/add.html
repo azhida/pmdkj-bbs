@@ -6,6 +6,10 @@
     <title>发表回复</title>
     <link rel="stylesheet" href="https://res.wx.qq.com/open/libs/weui/2.4.1/weui.min.css">
     <style>
+        h4{
+            width: 95vw;
+            margin: 10px auto;
+        }
         .topTips-hidden{
             opacity: 0; display: none;
         }
@@ -21,24 +25,19 @@
             background-color: gray;
             color: #fff;
         }
+
     </style>
 </head>
 <body>
 
 <div class="weui-toptips weui-toptips_warn topTips-hidden" id="topTips">错误提示</div>
 
-<div class="weui-form__control-area">
-    <div class="weui-cells__group weui-cells__group_form">
-        <div class="weui-cells__title"></div>
-        <div class="weui-cells weui-cells_form">
-            <div class="weui-cell ">
-                <div class="weui-cell__bd">
-                    <textarea class="weui-textarea" placeholder="请输入回复内容" rows="15"></textarea>
-                    <div class="weui-textarea-counter"><span>0</span>/200</div>
-                </div>
-            </div>
-        </div>
-    </div>
+<div>
+
+    <h4></h4>
+
+    <div id="wangEditor"></div>
+
 </div>
 
 <a href="javascript:" class="weui-btn_cell weui-btn_cell-primary" id="ft_button" onclick="fnPostReply();">
@@ -50,8 +49,11 @@
 <script type="text/javascript" src="../js/jquery-3.5.1.min.js"></script>
 <script type="text/javascript" src="../js/doT.min.js"></script>
 <script type="text/javascript" src="../js/common.js"></script>
+<script type="text/javascript" src="https://unpkg.com/wangeditor/dist/wangEditor.min.js"></script>
 
 <script type="text/javascript">
+
+    var editor;
 
     $(document).ready(function(){
 
@@ -68,13 +70,22 @@
             success: function (res) {
                 console.log(res);
                 if (res.code == '0') {
-                    $('.weui-cells__title').text(res.data.id + '、' + res.data.title);
+                    $('h4').text(res.data.id + '、' + res.data.title);
+
+                    fnCreatWangEditor();
+
                 } else {
                     // alert(res.msg);
                     fnShowErrorMsg(res.msg);
                 }
             }
         })
+    }
+
+    function fnCreatWangEditor() {
+        const E = window.wangEditor;
+        editor = new E('#wangEditor');
+        editor.create()
     }
 
     function fnShowErrorMsg(msg) {
@@ -87,7 +98,7 @@
     function fnPostReply() {
 
         var topic_id = fnGetUrlQueryString('topic_id');
-        var content = $('textarea').val();
+        var content = editor.txt.html();
         if (topic_id <= 0) {
             fnShowErrorMsg('话题ID错误');
             return;
