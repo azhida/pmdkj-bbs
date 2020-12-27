@@ -29,6 +29,7 @@ Route::group(['namespace' => 'App\Http\Controllers\Api'], function () {
     Route::get('replies', 'RepliesController@index');
     Route::post('replies', 'RepliesController@store');
     Route::get('replies/{reply}/setBest', 'RepliesController@setBest'); // 设置最佳回复
+    Route::get('replies/{id}', 'RepliesController@show'); // 详情
 });
 
 

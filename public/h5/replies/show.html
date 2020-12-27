@@ -3,26 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, viewport-fit=cover" name="viewport" />
-    <title>话题详情</title>
+    <title>回复详情</title>
     <link rel="stylesheet" href="https://res.wx.qq.com/open/libs/weui/2.4.1/weui.min.css">
 </head>
 <body>
 
-<script type="text/x-dot-template" id="topicTemplate">
+<script type="text/x-dot-template" id="template">
     <div class="page__bd">
         <article class="weui-article">
             <section>
                 <section>
-                    <h3>{{=it.id}}、{{=it.title}}</h3>
-
+                    <h3>{{=it.topic.id}}、{{=it.topic.title}}</h3>
+                    <p>{{=it.content}}</p>
                     <ul class="weui-media-box__info">
                         <li class="weui-media-box__info__meta">{{=it.created_at}}</li>
                         <li class="weui-media-box__info__meta weui-media-box__info__meta_extra">阅读{{=it.read_count}}</li>
-                        <li class="weui-media-box__info__meta weui-media-box__info__meta_extra">赞{{=it.like_count}}</li>
                         <li class="weui-media-box__info__meta weui-media-box__info__meta_extra" onclick="fnOpenTopicRepliesPage('{{=it.id}}')">评论{{=it.reply_count}}</li>
                     </ul>
-
-                    <p>{{=it.content}}</p>
                 </section>
             </section>
         </article>
@@ -42,12 +39,13 @@
     function fnGetTopic() {
         var id = fnGetUrlQueryString('id');
         $.ajax({
-            url: base_request_url + 'topics/' + id,
+            url: base_request_url + 'replies/' + id,
             type: 'get',
             success: function (res) {
+                console.log(res)
                 if (res.code == '0') {
 
-                    var tmpltxt = doT.template(document.getElementById("topicTemplate").innerHTML);//生成模板方法
+                    var tmpltxt = doT.template(document.getElementById("template").innerHTML);//生成模板方法
                     var html = tmpltxt(res.data); // 数据渲染
                     $('body').append(html);
 

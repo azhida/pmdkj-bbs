@@ -6,6 +6,13 @@
     <title>发表回复</title>
     <link rel="stylesheet" href="https://res.wx.qq.com/open/libs/weui/2.4.1/weui.min.css">
     <style>
+        .topTips-hidden{
+            opacity: 0; display: none;
+        }
+        .topTips-show{
+            display: block; opacity: 1;
+        }
+
         #ft_button{
             border: 0px solid red;
             position: fixed;
@@ -17,6 +24,8 @@
     </style>
 </head>
 <body>
+
+<div class="weui-toptips weui-toptips_warn topTips-hidden" id="topTips">错误提示</div>
 
 <div class="weui-form__control-area">
     <div class="weui-cells__group weui-cells__group_form">
@@ -61,16 +70,32 @@
                 if (res.code == '0') {
                     $('.weui-cells__title').text(res.data.id + '、' + res.data.title);
                 } else {
-                    alert(res.msg);
+                    // alert(res.msg);
+                    fnShowErrorMsg(res.msg);
                 }
             }
         })
+    }
+
+    function fnShowErrorMsg(msg) {
+        $('#topTips').text(msg).addClass('topTips-show').removeClass('topTips-hidden');
+        setTimeout(function () {
+            $('#topTips').removeClass('topTips-show').addClass('topTips-hidden');
+        }, 3000);
     }
 
     function fnPostReply() {
 
         var topic_id = fnGetUrlQueryString('topic_id');
         var content = $('textarea').val();
+        if (topic_id <= 0) {
+            fnShowErrorMsg('话题ID错误');
+            return;
+        }
+        if (!content) {
+            fnShowErrorMsg('请输入回复内容');
+            return;
+        }
 
         $.ajax({
             url: base_request_url + 'replies',
@@ -84,7 +109,8 @@
                     history.back();
 
                 } else {
-                    alert(res.msg);
+                    // alert(res.msg);
+                    fnShowErrorMsg(res.msg);
                 }
 
             }

@@ -41,6 +41,9 @@ class RepliesController extends Controller
     {
         $topic_id = $request->topic_id ?? 0;
         $content = $request->content ?? '';
+        if ($topic_id <= 0) return $this->fail('话题不存在');
+        if (!$content) return $this->fail('回复内容不能为空');
+
         $reply = Reply::query()->create([
             'user_id' => 1,
             'topic_id' => $topic_id,
@@ -59,7 +62,9 @@ class RepliesController extends Controller
      */
     public function show($id)
     {
-        //
+        $reply = Reply::query()->with(['topic'])->find($id);
+        $reply->increment('read_count', 1);
+        return $this->success('', $reply);
     }
 
     /**

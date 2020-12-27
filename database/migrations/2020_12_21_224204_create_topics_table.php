@@ -18,6 +18,9 @@ class CreateTopicsTable extends Migration
             $table->unsignedBigInteger('user_id')->comment('发布的用户ID');
             $table->string('title')->unique()->comment('标题');
             $table->longText('content')->nullable()->comment('内容');
+            $table->integer('read_count')->default(0)->comment('阅读次数');
+            $table->integer('reply_count')->default(0)->comment('评论次数');
+            $table->integer('like_count')->default(0)->comment('点赞次数');
             $table->timestamps();
         });
         \DB::statement("ALTER TABLE `topics` comment '话题表'");

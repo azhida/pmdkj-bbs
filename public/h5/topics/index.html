@@ -59,9 +59,10 @@
             <h4 class="weui-media-box__title">{{=value.id}}、{{=value.title}}</h4>
             <p class="weui-media-box__desc">{{=value.content}}</p>
             <ul class="weui-media-box__info">
-                <li class="weui-media-box__info__meta">文字来源</li>
-                <li class="weui-media-box__info__meta">时间</li>
-                <li class="weui-media-box__info__meta weui-media-box__info__meta_extra">其它信息</li>
+                <li class="weui-media-box__info__meta">{{=value.created_at}}</li>
+                <li class="weui-media-box__info__meta weui-media-box__info__meta_extra">阅读{{=value.read_count}}</li>
+                <li class="weui-media-box__info__meta weui-media-box__info__meta_extra">赞{{=value.like_count}}</li>
+                <li class="weui-media-box__info__meta weui-media-box__info__meta_extra">评论{{=value.reply_count}}</li>
             </ul>
         </div>
         {{~}}

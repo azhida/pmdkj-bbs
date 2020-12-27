@@ -14,6 +14,9 @@ class Topic extends Model
         'user_id',
         'title',
         'content',
+        'read_count',
+        'reply_count',
+        'like_count',
     ];
 
     protected function serializeDate(DateTimeInterface $date)

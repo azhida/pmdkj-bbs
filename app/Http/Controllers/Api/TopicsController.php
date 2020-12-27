@@ -112,8 +112,8 @@ class TopicsController extends Controller
      */
     public function show($id)
     {
-        //
         $topic = Topic::query()->find($id);
+        $topic->increment('read_count', 1);
         return $this->success('', $topic);
     }
 

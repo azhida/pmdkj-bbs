@@ -20,6 +20,9 @@ class CreateRepliesTable extends Migration
             $table->unsignedBigInteger('parent_id')->default(0)->comment('父级ID，关联 replies.id');
             $table->longText('content')->comment('回复内容');
             $table->boolean('is_best')->default(false)->comment('是否最佳');
+            $table->integer('read_count')->default(0)->comment('阅读次数');
+            $table->integer('reply_count')->default(0)->comment('评论次数');
+            $table->integer('like_count')->default(0)->comment('点赞次数');
             $table->timestamps();
         });
         \DB::statement("ALTER TABLE `replies` comment '话题回复表'");
