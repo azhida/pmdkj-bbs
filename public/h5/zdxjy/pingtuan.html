@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, viewport-fit=cover" name="viewport" />
+    <title>拼团详情</title>
+    <link rel="stylesheet" href="https://res.wx.qq.com/open/libs/weui/2.4.1/weui.min.css">
+    <style>
+        .left{
+            float: left;
+        }
+        .right{
+            float: right;
+        }
+        .clear{
+            clear: both;
+        }
+        .tuan-info{
+            border: 0px solid red;
+            height: 95vw;
+            background-image: url("../images/zdxjy/pingtuan_img_1.png");
+            background-repeat: no-repeat;
+            background-size: 100% 100%;
+        }
+
+        .pingtuan_img_2-div{
+            border: 0px solid red;
+            width: 100%;
+        }
+
+        #daojishi_2{
+            height: 30px;
+            background-color: #FE6265;
+            text-align: center;
+        }
+        #daojishi_2>span{
+            position: relative;
+            display: inline-block;
+            height: 30px;
+            line-height: 30px;
+
+            font-size: 14px;
+            color: #fff;
+        }
+        #daojishi_2>span>img{
+            height: 18px;
+            position: absolute;
+            left: -22px;
+            top: 5px;
+        }
+
+        .footer-div{
+            border-top: 1px solid #dfdfdf;
+            width: 100%;
+            height: 15vw;
+            position: fixed;
+            bottom: 0vw;
+            background-color: #fff;
+        }
+        .footer-div-2{
+            border: 0px solid blue;
+            height: 15vw;
+        }
+
+        .footer-div>span{
+            display: block;
+            height: 100%;
+            border: 0px solid red;
+        }
+        .footer-div>span:first-of-type{
+            width: 21%;
+        }
+        .footer-div>span:last-of-type{
+            width: 77%;
+        }
+
+        #liangxikefu-span{
+            border: 0px solid red;
+        }
+        #liangxikefu-span>div{
+            height: 50%;
+            text-align: center;
+            font-size: 14px;
+            color: gray;
+        }
+        #liangxikefu-span>div>img{
+            height: 80%;
+            margin: auto auto 0;
+
+        }
+        #liangxikefu-span .liangxikefu-img-div{
+            border: 0px solid red;
+            display: flex;
+            align-items: flex-end;
+        }
+
+        #pay-button-span{
+            border: 0px solid red;
+            position: relative;
+        }
+        #pay-button-span>div{
+            width: 90%;
+            height: 80%;
+            position: absolute;
+            top: 10%;
+        }
+        #pay-button-span>div>div{
+            text-align: center;
+            border: 0px solid red;
+            height: 100%;
+            color: #fff;
+        }
+        #pay-button-span>div>div:first-of-type{
+            width: 39%;
+            background-color: #FFE3CD;
+            border-top-left-radius: 7.5vw;
+            border-bottom-left-radius: 7.5vw;
+            box-shadow: -3px 3px 2px #F6C4A1, 0px 3px 2px #F6C4A1;
+        }
+        #pay-button-span>div>div:last-of-type{
+            width: 59%;
+            background-color: #FE6265;
+            border-top-right-radius: 7.5vw;
+            border-bottom-right-radius: 7.5vw;
+            box-shadow: 3px 3px 2px #FC3747, 0px 3px 2px #FC3747;
+        }
+        #pay-button-span>div>div>p:first-of-type{
+            font-size: 18px;
+        }
+        #pay-button-span>div>div>p:last-of-type{
+            font-size: 14px;
+        }
+
+        #kecheng_info_div{
+            padding: 20px 5%;
+        }
+        #kecheng_info_div .kecheng_title{
+            font-size: 20px;
+        }
+        #kecheng_info_div .kecheng_remark{
+            font-size: 12px;
+            color: grey;
+            margin: 10px 0;
+        }
+        #kecheng_info_div .kecheng_price{
+            border: 0px solid red;
+            height: 30px;
+        }
+        #kecheng_info_div .kecheng_price>span{
+            display: inline-block;
+            height: 20px;
+            line-height: 20px;
+            font-size: 12px;
+            color: #fff;
+            padding: 1px 15px;
+            background-color: #FF965B;
+            border-radius: 10px;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="tuan-info">
+
+</div>
+<div class="pingtuan_img_2-div">
+    <img src="../images/zdxjy/pingtuan_img_2.png" alt="" style="width: 100%;">
+</div>
+
+<div id="daojishi_2">
+    <span>
+        <img src="../images/zdxjy/zhong-128-128.png" alt="">
+        距离拼团结束还有 <span id="days_span_2">04</span>天<span id="hours_span_2">02</span>小时<span id="minutes_span_2">11</span>分<span id="seconds_span_2">59</span>秒
+    </span>
+</div>
+
+<div id="kecheng_info_div">
+
+    <div class="kecheng_title">【志达星教育】8节课，原价640元/科，现活动价2人团报199元/科！</div>
+    <div class="kecheng_remark">每人限报两科！两人成团仅限一名老生，开设年级：7-9年级，名额有限，报满即止！</div>
+
+    <div class="kecheng_price">
+        <span style="color: #FE6265;background-color: #fff;padding: 0;">￥<span style="font-size: 18px;font-weight: bold;">199.00</span></span>
+        <span style="background-color: #47C5FF;">2人团</span>
+        <span>认证机构</span>
+        <span>交易保障</span>
+    </div>
+
+</div>
+
+
+<div class="footer-div">
+
+    <span class="left" id="liangxikefu-span">
+        <div class="liangxikefu-img-div">
+            <img src="../images/zdxjy/lianxikefu-32-32.png" alt="">
+        </div>
+        <div>联系客服</div>
+
+    </span>
+
+    <span class="right" id="pay-button-span">
+
+        <div class="pay-button-div">
+            <div class="left">
+                <p>￥640.00</p>
+                <p>原价</p>
+            </div>
+            <div class="left">
+                <p>￥199.00</p>
+                <p>发起新团</p>
+            </div>
+        </div>
+    </span>
+
+</div>
+<div class="footer-div-2">
+
+</div>
+
+</body>
+<script type="text/javascript" src="../js/jquery-3.5.1.min.js"></script>
+<script type="text/javascript" src="../js/doT.min.js"></script>
+<script type="text/javascript" src="../js/common.js"></script>
+
+</html>
