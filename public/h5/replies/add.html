@@ -81,16 +81,7 @@
 
                 if (res.code == '0') {
 
-                    $('.weui-panel__hd').text(res.data.id + '、' + res.data.title);
-
-                    var tmpltxt = doT.template(document.getElementById("repliesTemplate").innerHTML);//生成模板方法
-                    var html = tmpltxt(res.data.replies); // 数据渲染
-                    $('.weui-panel__bd').before(html);
-
-                    // 底部 加高
-                    var ft_button_dom_height = $('#ft_button').innerHeight();
-                    // console.log(ft_button_dom_height);
-                    $('.weui-panel').css('margin-bottom', ft_button_dom_height);
+                    history.back();
 
                 } else {
                     alert(res.msg);
