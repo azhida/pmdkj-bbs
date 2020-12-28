@@ -6,10 +6,10 @@
     <title>话题列表</title>
     <link rel="stylesheet" href="https://res.wx.qq.com/open/libs/weui/2.4.1/weui.min.css">
     <style>
-        #show_content_p {
+        .show_content_p {
             padding: 20px 0;
         }
-        #hidden_content_p{
+        .hidden_content_p{
             padding: 20px 0;
             display: none;
         }
@@ -79,10 +79,10 @@
         {{~it:value:index}}
         <div class="weui-media-box weui-media-box_text">
             <h4 class="weui-media-box__title" onclick="fnOpenTopicShowPage('{{=value.id}}');">{{=value.id}}、{{=value.title}}</h4>
-            <p class="weui-media-box__desc" id="show_content_p" onclick="fnShowContent();">展开答案</p>
-            <div class="weui-media-box__desc" id="content_p" style="display: none;">{{=value.content}}</div>
+            <p class="weui-media-box__desc show_content_p" id="show_content_p_{{=value.id}}" onclick="fnShowContent('{{=value.id}}');">展开答案</p>
+            <div class="weui-media-box__desc" id="content_p_{{=value.id}}" style="display: none;">{{=value.content}}</div>
 <!--            <p class="weui-media-box__desc" id="content_p" style="display: none;"></p>-->
-            <p class="weui-media-box__desc" id="hidden_content_p" onclick="fnHiddenContent();">收起答案</p>
+            <p class="weui-media-box__desc hidden_content_p" id="hidden_content_p_{{=value.id}}" onclick="fnHiddenContent('{{=value.id}}');">收起答案</p>
             <ul class="weui-media-box__info">
                 <li class="weui-media-box__info__meta">{{=value.created_at}}</li>
                 <li class="weui-media-box__info__meta weui-media-box__info__meta_extra">阅读{{=value.read_count}}</li>
@@ -186,16 +186,16 @@
         window.location.href = './add.html';
     }
 
-    function fnShowContent() {
-        $('#show_content_p').hide();
-        $('#content_p').show();
-        $('#hidden_content_p').show();
+    function fnShowContent(id) {
+        $('#show_content_p_' + id).hide();
+        $('#content_p_' + id).show();
+        $('#hidden_content_p_' + id).show();
     }
 
-    function fnHiddenContent() {
-        $('#show_content_p').show();
-        $('#content_p').hide();
-        $('#hidden_content_p').hide();
+    function fnHiddenContent(id) {
+        $('#show_content_p_' + id).show();
+        $('#content_p_' + id).hide();
+        $('#hidden_content_p_' + id).hide();
     }
 
     function fnOpenTopicShowPage(id) {
