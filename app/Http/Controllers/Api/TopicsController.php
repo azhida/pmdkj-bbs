@@ -41,7 +41,6 @@ class TopicsController extends Controller
     }
 
     /**
-     * 这里只写入 title这个字段，content字段是通过 评论 选择后写入的
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -49,17 +48,36 @@ class TopicsController extends Controller
      */
     public function store(Request $request)
     {
+        if (!$title = $request->title) return $this->fail('请输入话题标题');
+        if (!$content = $request->content) return $this->fail('请输入话题内容');
+
+        if (Topic::query()->where('title', $title)->exists()) {
+            return $this->fail('话题标题已存在，你可以搜索后选择修改或添加评论');
+        }
+
+        $topic = Topic::query()->create([
+            'title' => $title,
+            'content' => $content
+        ]);
+
+        return $this->success('发布成功', $topic);
+
+    }
+
+    // 添加话题标题（可批量）
+    public function addTitles(Request $request)
+    {
         if ($request->title) {
             $titles = explode(';', $request->title);
         } else
-        if ($request->titles) {
-            $titles = explode("\n", $request->titles);
-        }
-        else {
-            // 读文件
-            $titles = file_get_contents($request->file('file'));
-            $titles = explode("\r\n", $titles);
-        }
+            if ($request->titles) {
+                $titles = explode("\n", $request->titles);
+            }
+            else {
+                // 读文件
+                $titles = file_get_contents($request->file('file'));
+                $titles = explode("\r\n", $titles);
+            }
 
         $error_titles = [];
         $success_titles = [];

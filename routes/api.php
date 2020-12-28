@@ -26,6 +26,7 @@ Route::group(['namespace' => 'App\Http\Controllers\Api'], function () {
     Route::get('topics/{id}', 'TopicsController@show');
     Route::put('topics/{id}', 'TopicsController@update');
     Route::redirect('addTopicTitles', '/h5/topics/addTitles.html');
+    Route::post('addTopicTitles', 'TopicsController@addTitles'); // 添加话题标题 -- 可批量
 
     Route::get('replies', 'RepliesController@index');
     Route::post('replies', 'RepliesController@store');
