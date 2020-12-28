@@ -24,7 +24,7 @@ class TopicsController extends Controller
                 $query->orWhere('content', 'like', "%{$search_word}%");
             });
         }
-        $topics = $query->offset($this->getOffset())->limit($this->getLimit())->get();
+        $topics = $query->orderBy('id', 'DESC')->offset($this->getOffset())->limit($this->getLimit())->get();
         $meta = $request->all();
         $meta['offset'] += count($topics);
         return $this->success('', $topics, $meta);
@@ -137,7 +137,21 @@ class TopicsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        if ($id <= 0) return $this->fail('话题ID错误');
+        if (!$title = $request->title) return $this->fail('请输入话题标题');
+        if (!$content = $request->content) return $this->fail('请输入话题内容');
+
+        if (Topic::query()->where('title', $title)->where('id', '!=', $id)->exists()) {
+            return $this->fail('话题标题已存在');
+        }
+
+        $topic = Topic::query()->find($id);
+        if (!$topic) return $this->fail('话题不存在');
+        $topic->update([
+            'title' => $title,
+            'content' => $content,
+        ]);
+        return $this->success('更新成功');
     }
 
     /**

@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, viewport-fit=cover" name="viewport" />
+    <title>发布话题</title>
+    <link rel="stylesheet" href="https://res.wx.qq.com/open/libs/weui/2.4.1/weui.min.css">
+    <style>
+        h4{
+            width: 95vw;
+            margin: 10px auto;
+            border-bottom: 1px solid gray;
+        }
+        h4>input{
+            outline: none;
+            border: 0;
+            width: 100%;
+            height: 35px;
+            font-size: 16px;
+        }
+        .topTips-hidden{
+            opacity: 0; display: none;
+        }
+        .topTips-show{
+            display: block; opacity: 1;
+        }
+
+        #ft_button{
+            border: 0px solid red;
+            position: fixed;
+            bottom: 0;
+            width: 100vw;
+            background-color: gray;
+            color: #fff;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="weui-toptips weui-toptips_warn topTips-hidden" id="topTips">错误提示</div>
+
+<div>
+
+    <h4>
+        <input type="hidden" name="id" value="0">
+        <input type="text" name="title" value="" placeholder="输入话题标题">
+    </h4>
+
+    <div id="wangEditor"></div>
+
+</div>
+
+<a href="javascript:" class="weui-btn_cell weui-btn_cell-primary" id="ft_button" onclick="fnPostTopic();">
+    发布
+</a>
+
+</body>
+
+<script type="text/javascript" src="../js/jquery-3.5.1.min.js"></script>
+<script type="text/javascript" src="../js/doT.min.js"></script>
+<script type="text/javascript" src="../js/common.js"></script>
+<script type="text/javascript" src="https://unpkg.com/wangeditor/dist/wangEditor.min.js"></script>
+
+<script type="text/javascript">
+
+    var editor;
+
+    $(document).ready(function(){
+
+        var topic_id = fnGetUrlQueryString('topic_id');
+        if (topic_id > 0) {
+            // 修改话题
+            fnGetTopic(topic_id);
+        } else {
+            // 新增话题
+            fnCreatWangEditor();
+        }
+
+    });
+
+    function fnGetTopic(topic_id) {
+        $.ajax({
+            url: base_request_url + 'topics/' + topic_id,
+            type: 'get',
+            success: function (res) {
+                console.log(res);
+                if (res.code == '0') {
+                    $('input[name="id"]').val(res.data.id);
+                    $('input[name="title"]').val(res.data.title);
+
+                    fnCreatWangEditor(res.data.content);
+
+                } else {
+                    // alert(res.msg);
+                    fnShowErrorMsg(res.msg);
+                }
+            }
+        })
+    }
+
+    function fnCreatWangEditor(content) {
+        const E = window.wangEditor;
+        editor = new E('#wangEditor');
+        editor.create();
+        editor.txt.html(content);
+    }
+
+    function fnShowErrorMsg(msg) {
+        $('#topTips').text(msg).addClass('topTips-show').removeClass('topTips-hidden');
+        setTimeout(function () {
+            $('#topTips').removeClass('topTips-show').addClass('topTips-hidden');
+        }, 3000);
+    }
+
+    function fnPostTopic() {
+
+        var id = $('input[name="id"]').val();
+        var title = $('input[name="title"]').val();
+        var content = editor.txt.html();
+        if (!title) {
+            fnShowErrorMsg('请输入话题标题');
+            return;
+        }
+        if (!content) {
+            fnShowErrorMsg('请输入话题内容');
+            return;
+        }
+
+        var data = {
+            id: id,
+            title: title,
+            content: content
+        };
+        if (data.id > 0) {
+            var request_type = 'PUT';
+            var url = base_request_url + 'topics/' + id;
+        } else {
+            var request_type = 'POST';
+            var url = base_request_url + 'topics';
+        }
+
+        $.ajax({
+            url: url,
+            type: request_type,
+            data: data,
+            success: function (res) {
+                console.log(res);
+
+                if (res.code == '0') {
+
+                    window.location.href = './index.html';
+
+                } else {
+                    // alert(res.msg);
+                    fnShowErrorMsg(res.msg);
+                }
+
+            }
+        })
+
+    }
+</script>
+
+
+</html>
