@@ -44,7 +44,7 @@
 
     <div class="weui-media-box weui-media-box_text">
         <h4 class="weui-media-box__title">用户：{{=value.user_id}}</h4>
-        <p class="weui-media-box__desc" onclick="fnOpenReplyDetailPage('{{=value.id}}');">{{=value.content}}</p>
+        <div class="weui-media-box__desc" onclick="fnOpenReplyDetailPage('{{=value.id}}');">{{=value.content}}</div>
         <ul class="weui-media-box__info">
             <li class="weui-media-box__info__meta">{{=value.created_at}}</li>
             <li class="weui-media-box__info__meta weui-media-box__info__meta_extra">赞{{=value.like_count}}</li>
@@ -82,7 +82,6 @@
 
     // 打开回复详情
     function fnOpenReplyDetailPage(id) {
-        alert(id)
         window.location.href = './show.html?id=' + id;
     }
 

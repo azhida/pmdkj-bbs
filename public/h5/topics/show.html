@@ -6,6 +6,9 @@
     <title>话题详情</title>
     <link rel="stylesheet" href="https://res.wx.qq.com/open/libs/weui/2.4.1/weui.min.css">
     <style>
+        #content_div{
+            overflow-x: scroll;
+        }
         #ft_button{
             border: 0px solid red;
             position: fixed;
@@ -41,7 +44,9 @@
                         <li class="weui-media-box__info__meta weui-media-box__info__meta_extra" onclick="fnOpenTopicRepliesPage('{{=it.id}}')">评论{{=it.reply_count}}</li>
                     </ul>
 
-                    <p>{{=it.content}}</p>
+                    <div id="content_div">
+                        {{=it.content}}
+                    </div>
                 </section>
             </section>
         </article>

@@ -5,6 +5,11 @@
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, viewport-fit=cover" name="viewport" />
     <title>回复详情</title>
     <link rel="stylesheet" href="https://res.wx.qq.com/open/libs/weui/2.4.1/weui.min.css">
+    <style>
+        #content_div{
+            overflow-x: scroll;
+        }
+    </style>
 </head>
 <body>
 
@@ -14,7 +19,8 @@
             <section>
                 <section>
                     <h3>{{=it.topic.id}}、{{=it.topic.title}}</h3>
-                    <p>{{=it.content}}</p>
+                    <p></p>
+                    <div id="content_div">{{=it.content}}</div>
                     <ul class="weui-media-box__info">
                         <li class="weui-media-box__info__meta">{{=it.created_at}}</li>
                         <li class="weui-media-box__info__meta weui-media-box__info__meta_extra">阅读{{=it.read_count}}</li>
