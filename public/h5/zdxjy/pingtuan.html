@@ -22,6 +22,16 @@
             background-repeat: no-repeat;
             background-size: 100% 100%;
         }
+        .tuan-info .daojishi{
+            color: #ff2222;
+            font-size: 14px;
+        }
+        .tuan-info .daojishi>span{
+            background-color: #ff2222;
+            color: #fff;
+            padding: 0vw 1vw;
+            border-radius: 1vw;
+        }
 
         .pingtuan_img_2-div{
             border: 0px solid red;
@@ -157,11 +167,45 @@
             border-radius: 10px;
         }
 
+        .user-list-div{
+            border: 0px solid red;
+            border-top: 2vw solid gray;
+            border-bottom: 2vw solid gray;
+        }
+
+        .user-list-div>span{
+            height: 10vw;
+            display: inline-block;
+            border: 1px solid red;
+        }
+
+        .user-list-div img{
+            width: 10vw;
+            height: 10vw;
+        }
+
     </style>
 </head>
 <body>
 
 <div class="tuan-info">
+    <div style="height: 10vw;"></div>
+
+    <div style="text-align: center;position: relative; width: 76vw;height: 75vw; background-color: #fff;border: 1px solid red;margin: auto; border-radius: 10px;">
+        <div>
+            <img style="width: 13vw;margin-top: 3vw;" src="../images/touxiang-128-128.png" alt="">
+            <p>刘文清</p>
+        </div>
+        <div class="daojishi">拼团剩余时间 <span>261</span>:<span>14</span>:<span>26</span></div>
+        <div>
+            <img style="width: 13vw;margin-top: 3vw;" src="../images/touxiang-128-128.png" alt="">
+            <img style="width: 13vw;margin-top: 3vw;" src="../images/touxiang-128-128.png" alt="">
+
+        </div>
+        <div style="font-size: 14px; color: gray;">已有一人参团，还差一人成团</div>
+
+        <div style="position: absolute;bottom: 3vw;text-align: center;border: 1px solid red;width: 80%;left: 10%;padding: 2vw 0vw;background-color: #ff2222;color: #fff;">￥199.00立即参团</div>
+    </div>
 
 </div>
 <div class="pingtuan_img_2-div">
@@ -186,6 +230,19 @@
         <span>认证机构</span>
         <span>交易保障</span>
     </div>
+
+</div>
+
+<div class="user-list-div">
+    <div class="left">
+              <img src="../images/touxiang-128-128.png" alt="">
+    <!--    <img src="../images/touxiang-128-128.png" alt="">-->
+    <!--    <img src="../images/touxiang-128-128.png" alt="">-->
+    <!--    <img src="../images/touxiang-128-128.png" alt="">-->
+    </div>
+    <div class="right">2000人报名</div>
+    <div class="clear"></div>
+
 
 </div>
 
