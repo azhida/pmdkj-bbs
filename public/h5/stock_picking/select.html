@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, viewport-fit=cover" name="viewport" />
+    <title>选股</title>
+    <link rel="stylesheet" href="https://res.wx.qq.com/open/libs/weui/2.4.1/weui.min.css">
+    <script type="text/javascript" src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+    <style>
+
+        .weui-tab__panel{
+            border: 1px solid red;
+        }
+
+        .tabber_div{
+            display: none;
+        }
+        .tabber_div:first-of-type{
+            display: block;
+        }
+
+        .tabber_div_1 span{
+            background-color: #ccc;
+            width: 30%;
+            padding: 5px 0;
+            margin: 10px 5% 0 0;
+            display: inline-block;
+            text-align: center;
+            border-radius: 5px;
+            color: #000;
+            font-weight: bold;
+        }
+        .tabber_div_1 .active{
+            background-color: #ff0000;
+            font-weight: bold;
+            color: #fff;
+        }
+        .tabber_div_1 span:nth-of-type(3n+3){
+            margin-right: 0;
+        }
+    </style>
+
+</head>
+<body>
+
+
+
+<div class="container" id="container">
+
+    <div class="page">
+        <div class="page__bd" style="height: 100vh;">
+            <div class="weui-tab">
+                <div class="weui-tab__panel">
+
+                    <div class="tabber_div tabber_div_1">
+
+                        <div style="width: 90vw;margin: 20px auto;">
+                            <h4 style="border-bottom: 2px solid #ccc;">技术指标1</h4>
+                            <div>
+                                <span class="active">MACD金叉</span><span>MACD死叉</span><span>均线金叉</span>
+                                <span>均线死叉</span><span>KDJ金叉</span><span>KDJ死叉</span>
+                            </div>
+                        </div>
+
+                        <div style="width: 90vw; margin: 20px auto;">
+                            <h4 style="border-bottom: 2px solid #ccc;">技术指标2</h4>
+                            <div>
+                                <span>MACD底背离</span><span>KDJ底背离</span><span>量价底背离</span>
+                                <span>MACD顶背离</span><span>KDJ顶背离</span><span>量价顶背离</span>
+                            </div>
+                        </div>
+
+                        <div style="width: 90vw; margin: 20px auto;">
+                            <h4 style="border-bottom: 2px solid #ccc;">实时</h4>
+                            <div>
+                                <span>平</span><span>0-1%</span><span>1-3%</span>
+                                <span>3-5%</span><span>大于5%</span><span>跌0-1%</span>
+                                <span>跌1-3%</span><span>跌3-5%%</span><span>跌超5%</span>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="tabber_div tabber_div_2">
+
+                        2
+                    </div>
+
+                    <div class="tabber_div tabber_div_3">
+
+                        <div style="width: 90vw;">
+                            <h5>技术指标1</h5>
+                            <div>
+
+                                <span>MACD金叉</span>
+                                <span>MACD死叉</span>
+                                <span>均线金叉</span>
+                                <span>均线死叉</span>
+                                <span>KDJ金叉</span>
+                                <span>KDJ死叉</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tabber_div tabber_div_4">
+
+                        4
+                    </div>
+
+
+                </div>
+                <div class="weui-tabbar">
+                    <div class="weui-tabbar__item weui-bar__item_on" num="1">
+                        <div style="display: inline-block; position: relative;">
+                            <img src="./images/icon_tabbar.png" alt="" class="weui-tabbar__icon">
+                            <span class="weui-badge" style="position: absolute; top: -2px; right: -13px;">8</span>
+                        </div>
+                        <p class="weui-tabbar__label">选股</p>
+                    </div>
+                    <div class="weui-tabbar__item" num="2">
+                        <img src="./images/icon_tabbar.png" alt="" class="weui-tabbar__icon">
+                        <p class="weui-tabbar__label">通讯录</p>
+                    </div>
+                    <div class="weui-tabbar__item" num="3">
+                        <div style="display: inline-block; position: relative;">
+                            <img src="./images/icon_tabbar.png" alt="" class="weui-tabbar__icon">
+                            <span class="weui-badge weui-badge_dot" style="position: absolute; top: 0; right: -6px;"></span>
+                        </div>
+                        <p class="weui-tabbar__label">发现</p>
+                    </div>
+                    <div class="weui-tabbar__item" num="4">
+                        <img src="./images/icon_tabbar.png" alt="" class="weui-tabbar__icon">
+                        <p class="weui-tabbar__label">我</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<script type="text/javascript">
+    $(function(){
+        $('.weui-tabbar__item').on('click', function () {
+            $(this).addClass('weui-bar__item_on').siblings('.weui-bar__item_on').removeClass('weui-bar__item_on');
+            var num = $(this).attr('num');
+            $('.tabber_div_' + num).show().siblings().hide();
+        });
+
+        $('.tabber_div_1 span').on('click', function () {
+
+            if ($(this).hasClass('active')) {
+                $(this).removeClass('active');
+            } else {
+                $(this).addClass('active');
+            }
+        });
+    });
+</script>
+
+</body>
+</html>
