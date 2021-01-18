@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, viewport-fit=cover" name="viewport" />
+    <title>二维码</title>
+    <link rel="stylesheet" href="https://res.wx.qq.com/open/libs/weui/2.4.1/weui.min.css">
+</head>
+<body>
+
+<div class="page form_textarea js_show">
+    <div class="weui-form">
+        <div class="weui-form__text-area">
+            <h2 class="weui-form__title">二维码</h2>
+            <div class="weui-form__desc">图片展示</div>
+            <div class="weui-form__dec"><img style="max-height: 200px;max-width: 200px;" src="../images/zdxjy/pingtuan_img_2.png" alt=""></div>
+        </div>
+        <div class="weui-form__control-area">
+            <div class="weui-cells__group weui-cells__group_form">
+                <div class="weui-cells__title">描述：输入你的二维码内容</div>
+                <div class="weui-cells weui-cells_form">
+                    <div class="weui-cell ">
+                        <div class="weui-cell__bd">
+                            <textarea class="weui-textarea" placeholder="输入你的二维码内容" rows="3"></textarea>
+                            <div class="weui-textarea-counter"><span>0</span>/200</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="weui-form__opr-area">
+            <a class="weui-btn weui-btn_primary" href="javascript:" onclick="fnMakeQrCode();">生成二维码图片</a>
+        </div>
+        <div class="weui-form__opr-area">
+            <a class="weui-btn weui-btn_primary" href="javascript:" onclick="fnLoadQrCode();">下载二维码图片</a>
+        </div>
+    </div>
+
+</div>
+
+<script type="text/javascript" src="../js/jquery-3.5.1.min.js"></script>
+<script type="text/javascript" src="../js/common.js"></script>
+
+<script>
+    $(function () {
+
+
+    });
+
+    function fnMakeQrCode() {
+        alert('生成二维码')
+    }
+
+    function fnLoadQrCode() {
+        alert('下载二维码');
+    }
+</script>
+
+</body>
+</html>
