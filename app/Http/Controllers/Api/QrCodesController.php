@@ -11,6 +11,28 @@ use function EasyWeChat\Kernel\Support\str_random;
 
 class QrCodesController extends Controller
 {
+    public function show($short_code)
+    {
+        $qrCode = QrCode::query()->where('short_code', $short_code)->first();
+        return view('qr_codes.show', ['info' => $qrCode]);
+    }
+
+    public function updateQrCode(Request $request)
+    {
+        $short_code = $request->short_code ?? '';
+        if (!$short_code) return $this->fail('参数错误');
+
+        $qr_code_content = $request->qr_code_content ?? '';
+        if (!$qr_code_content) return $this->fail('二维码内容不能为空');
+
+        $qrCode = QrCode::query()->where('short_code', $short_code)->first();
+        if (!$qrCode) return $this->fail('二维码信息不存在');
+
+        $qrCode->update(['qr_code_content' => $qr_code_content]);
+
+        return $this->success('修改成功', $qrCode);
+    }
+
     public function makeQrCode(Request $request)
     {
         $qr_code_content = $request->qr_code_content ?? '';
@@ -29,7 +51,7 @@ class QrCodesController extends Controller
         }
 
         // 客户端请求生成二维码
-        $res = (new QrCodeService())->makeQrCode('images/request_make_codes', $short_code);
+        $res = (new QrCodeService())->makeQrCode('images/request_make_codes', url('qr_codes/' . $short_code));
 
         if ($res['code'] == 1) {
             return $this->fail('生成失败');
