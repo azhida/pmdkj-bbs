@@ -34,6 +34,7 @@ Route::group(['namespace' => 'App\Http\Controllers\Api'], function () {
     Route::get('replies/{id}', 'RepliesController@show'); // 详情
 
     Route::get('makeQrCode', 'QrCodesController@makeQrCode'); // 生成二维码
+    Route::get('downloadQrCode', 'QrCodesController@downloadQrCode'); // 下载二维码
 });
 
 

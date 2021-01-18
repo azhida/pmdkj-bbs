@@ -52,6 +52,7 @@
 
     });
 
+    var short_code = null;
     function fnMakeQrCode() {
         $.ajax({
             url: base_request_url + 'makeQrCode',
@@ -67,12 +68,14 @@
                 }
 
                 $('#img_show_div>img').attr('src', res.data.file_url);
+                short_code = res.data.short_code;
             }
         })
     }
 
     function fnLoadQrCode() {
-        alert('下载二维码');
+        if (!short_code) return;
+        window.location.href = base_request_url + 'downloadQrCode?short_code=' + short_code;
     }
 </script>
 

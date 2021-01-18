@@ -45,4 +45,12 @@ class QrCodesController extends Controller
             return $this->success('', ['short_code' => $short_code, 'file_url' => $res['file_url']]);
         }
     }
+
+    public function downloadQrCode(Request $request)
+    {
+        if (!$request->short_code) return $this->fail('请求参数错误');
+        $qrCode = QrCode::query()->where('short_code', $request->short_code)->first();
+        $file_info = explode(env('APP_URL'), $qrCode->file_url);
+        return response()->download(public_path($file_info[1]));
+    }
 }
