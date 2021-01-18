@@ -54,7 +54,8 @@
             url: '{{ url('api/updateQrCode') }}',
             type: 'post',
             data: {
-                qr_code_content: $('textarea').val()
+                short_code: short_code,
+                qr_code_content: $('textarea').val(),
             },
             success: function (res) {
                 console.log(res)
