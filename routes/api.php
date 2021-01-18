@@ -32,6 +32,8 @@ Route::group(['namespace' => 'App\Http\Controllers\Api'], function () {
     Route::post('replies', 'RepliesController@store');
     Route::get('replies/{reply}/setBest', 'RepliesController@setBest'); // 设置最佳回复
     Route::get('replies/{id}', 'RepliesController@show'); // 详情
+
+    Route::get('makeQrCode', 'QrCodesController@makeQrCode'); // 生成二维码
 });
 
 
