@@ -15,4 +15,11 @@ Route::group([
 
     $router->resource('/topics', 'TopicsController');
 
+    $router->resource('ancai_courses', AncaiCoursesController::class);
+
+    $router->get('get_ancai_catalogs', 'AncaiCatalogsController@getCatalogs')->name('ancai_catalogs.getCatalogs');
+    $router->resource('ancai_catalogs', AncaiCatalogsController::class);
+
+    $router->resource('ancai_articles', AncaiArticlesController::class);
+
 });
