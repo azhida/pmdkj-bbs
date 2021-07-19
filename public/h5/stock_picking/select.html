@@ -21,9 +21,9 @@
 
         .tabber_div_1 span{
             background-color: #ccc;
-            width: 30%;
-            padding: 5px 0;
-            margin: 10px 5% 0 0;
+            /*width: 30%;*/
+            padding: 5px;
+            margin: 10px 2% 0 0;
             display: inline-block;
             text-align: center;
             border-radius: 5px;
@@ -36,7 +36,17 @@
             color: #fff;
         }
         .tabber_div_1 span:nth-of-type(3n+3){
-            margin-right: 0;
+            /*margin-right: 0;*/
+        }
+
+        #post_button_div{
+            width: 100%;
+            margin-top: 10px;
+            padding: 10px 0;
+            color: #fff;
+            text-align: center;
+            font-size: 16px;
+            background-color: #ff0000;
         }
     </style>
 
@@ -51,6 +61,19 @@
         <div class="page__bd" style="height: 100vh;">
             <div class="weui-tab">
                 <div class="weui-tab__panel">
+
+                    <script type="text/x-dot-template" id="tabberDiv1Template">
+                        {{ for(var i in it) { }}
+                        <div style="width: 90vw;margin: 20px auto;">
+                            <h4 style="border-bottom: 2px solid #ccc;">{{=i}}</h4>
+                            <div>
+                                {{~it[i]:value:index}}
+                                <span i="{{=i}}" key="{{=value.key}}">{{=value.value}}</span>
+                                {{~}}
+                            </div>
+                        </div>
+                        {{ } }}
+                    </script>
 
                     <div class="tabber_div tabber_div_1">
 
@@ -138,8 +161,184 @@
     </div>
 
 </div>
+<script type="text/javascript" src="../js/doT.min.js"></script>
 <script type="text/javascript">
+
+    var is_first = true;
+    var postData = {};
+    var params = {
+        "gpzs": [
+            {
+                "key": "HS300",
+                "value": "沪深300"
+            },
+            {
+                "key": "ZZ500",
+                "value": "中证500"
+            },
+            {
+                "key": "ZZ800",
+                "value": "中证800"
+            },
+            {
+                "key": "ALLSTOCKS",
+                "value": "全A"
+            }
+        ],
+        "jszb": [
+            {
+                "key": "KDJJC",
+                "value": "KDJ金叉"
+            },
+            {
+                "key": "MACDJC",
+                "value": "MACD金叉"
+            },
+            {
+                "key": "JXJC",
+                "value": "均线金叉"
+            },
+            {
+                "key": "KDJJC",
+                "value": "KDJ金叉"
+            },
+            {
+                "key": "MACDDBL",
+                "value": "MACD底背离"
+            },
+            {
+                "key": "HSB",
+                "value": "红三兵"
+            },
+            {
+                "key": "SZCX",
+                "value": "十字晨星"
+            },
+            {
+                "key": "VXFZ",
+                "value": "V型反转"
+            },
+            {
+                "key": "PTSS",
+                "value": "平台上升"
+            }
+        ],
+        "jbmzb": [
+            {
+                "key": "ROE15",
+                "value": "ROE大于15"
+            },
+            {
+                "key": "ROE15-2",
+                "value": "ROE连续两年大于15"
+            },
+            {
+                "key": "ROE15-3",
+                "value": "ROE连续三年大于15"
+            },
+            {
+                "key": "MLL60",
+                "value": "毛利率大于60"
+            },
+            {
+                "key": "MLL60-2",
+                "value": "毛利率连续两年大于60"
+            },
+            {
+                "key": "MLL60-3",
+                "value": "毛利率连续三年大于60"
+            },
+            {
+                "key": "JLRTBZZ20",
+                "value": "净利润同比增长超过20"
+            },
+            {
+                "key": "JLRTBZZ30",
+                "value": "净利润同比增长超过30"
+            }
+        ],
+        "hqzb": [
+            {
+                "key": "GJXG",
+                "value": "股价创近一年新高"
+            },
+            {
+                "key": "GJXD",
+                "value": "股价创近一年新低"
+            },
+            {
+                "key": "LXZT",
+                "value": "股价当天涨停"
+            },
+            {
+                "key": "LXZT2",
+                "value": "股价连续两天涨停"
+            },
+            {
+                "key": "LXZT3",
+                "value": "股价连续三天涨停"
+            },
+            {
+                "key": "JLR20",
+                "value": "主力净流入前20"
+            },
+            {
+                "key": "DDJLR20",
+                "value": "大单净流入前20"
+            },
+            {
+                "key": "CDDJLR20",
+                "value": "超大单净流入前20"
+            },
+            {
+                "key": "JLR20-3",
+                "value": "3日主力净流入前20"
+            },
+            {
+                "key": "JLR20-5",
+                "value": "5日主力净流入前20"
+            },
+            {
+                "key": "JLR20-10",
+                "value": "10日主力净流入前20"
+            },
+            {
+                "key": "BKJLR10-1",
+                "value": "今日板块主力净流入前10"
+            },
+            {
+                "key": "BKJLR10-5",
+                "value": "5日板块主力净流入前10"
+            },
+            {
+                "key": "BKJLR-10",
+                "value": "10日概念主力净流入前10"
+            },
+            {
+                "key": "GNJLR-10",
+                "value": "今日概念主力净流入前10"
+            },
+            {
+                "key": "GNJLR5-10",
+                "value": "5日概念主力净流入前10"
+            },
+            {
+                "key": "GNJLR10-10",
+                "value": "10日概念主力净流入前10"
+            }
+        ],
+        "viplhcl": [
+            {
+                "key": "CJFZ",
+                "value": "超级短线"
+            }
+        ]
+    };
+
     $(function(){
+
+        fnSetTtabberDiv1();
+
         $('.weui-tabbar__item').on('click', function () {
             $(this).addClass('weui-bar__item_on').siblings('.weui-bar__item_on').removeClass('weui-bar__item_on');
             var num = $(this).attr('num');
@@ -147,14 +346,42 @@
         });
 
         $('.tabber_div_1 span').on('click', function () {
-
+            var i = $(this).attr('i');
             if ($(this).hasClass('active')) {
                 $(this).removeClass('active');
+                delete postData[i];
             } else {
+                $('span[i=' + i + ']').removeClass('active');
                 $(this).addClass('active');
+                postData[i] = $(this).attr('key');
             }
+
+            console.log(postData)
         });
+
     });
+
+
+    function fnSetTtabberDiv1(){
+        var tmpltxt = doT.template(document.getElementById("tabberDiv1Template").innerHTML);//生成模板方法
+        var html = tmpltxt(params); // 数据渲染
+        $('.tabber_div_1').html(html);
+
+        var post_button_div_html = '<div id="post_button_div" onclick="fnPostSelect();">提交</div>';
+        $('.tabber_div_1').append(post_button_div_html);
+    }
+
+    function fnPostSelect() {
+        $.ajax({
+            url: 'http://47.104.176.25:5000/index',
+            type: 'post',
+            data: postData,
+            success: function (res) {
+                console.log(res);
+                alert(JSON.stringify(res))
+            }
+        })
+    }
 </script>
 
 </body>
