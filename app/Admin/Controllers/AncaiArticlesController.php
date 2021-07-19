@@ -84,7 +84,10 @@ class AncaiArticlesController extends AdminController
         $form->select('course_id', __('课程'))->options(function () {
             return AncaiCourse::query()->pluck('title', 'id');
         })->load('catalog_id', route('admin.ancai_catalogs.getCatalogs'))->rules(['required']);
-        $form->select('catalog_id', __('目录'))->rules(['required']);
+        $form->select('catalog_id', __('目录'))->rules(['required'])->options(function () {
+            $ancaiCatalogs = AncaiCatalog::query()->where('course_id', $this->course_id)->pluck('title', 'id');
+            return $ancaiCatalogs;
+        });
         $form->text('title', __('标题'))->rules(['required']);
         $form->text('video_link', __('视频链接'));
         $form->number('sort', __('排序'))->default(0);
