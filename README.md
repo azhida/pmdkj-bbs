@@ -1,3 +1,7 @@
+```
+cp .env.example .env
+```
+
 ###### Export | Import data
 ```
 # Export admin menu data
