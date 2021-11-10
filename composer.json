@@ -18,7 +18,7 @@
         "jacobcyl/ali-oss-storage": "^2.1",
         "laravel/framework": "^8.12",
         "laravel/tinker": "^2.5",
-        "overtrue/laravel-wechat": "^5.1",
+        "overtrue/laravel-wechat": "^6.0",
         "predis/predis": "^1.1"
     },
     "require-dev": {
