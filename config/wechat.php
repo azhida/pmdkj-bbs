@@ -129,5 +129,16 @@ return [
              'secret'   => env('WECHAT_WORK_AGENT_CONTACTS_SECRET', ''),
               //...
           ],
+
+         // 会话存档配置信息
+         'msg_save' => [
+             'corp_id' => env('WECHAT_WORK_CORP_ID', ''), // 企业ID
+
+             'secret'   => env('WECHAT_WORK_MSG_SAVE_SECRET', ''), //
+
+             // server config
+             'token' => env('WECHAT_WORK_MSG_SAVE_TOKEN', ''), //
+             'aes_key' => env('WECHAT_WORK_MSG_SAVE_AES_KEY', ''), //
+         ]
      ],
 ];
