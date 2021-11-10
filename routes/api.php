@@ -36,6 +36,9 @@ Route::group(['namespace' => 'App\Http\Controllers\Api'], function () {
     Route::get('makeQrCode', 'QrCodesController@makeQrCode'); // 生成二维码
     Route::post('updateQrCode', 'QrCodesController@updateQrCode'); // 修改二维码
     Route::get('downloadQrCode', 'QrCodesController@downloadQrCode'); // 下载二维码
+
+    # 企业微信
+    Route::any('work_wechat/save_msg', 'WorkWeChatController@saveMsg'); // 接收企业微信的回调
 });
 
 
