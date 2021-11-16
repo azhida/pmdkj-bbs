@@ -139,6 +139,8 @@ return [
              // server config
              'token' => env('WECHAT_WORK_MSG_SAVE_TOKEN', ''), //
              'aes_key' => env('WECHAT_WORK_MSG_SAVE_AES_KEY', ''), //
+
+             'private_key_file_path' => env('WECHAT_WORK_PRIVATE_KEY_FILE_PATH', ''), // 私匙文件地址
          ]
      ],
 ];

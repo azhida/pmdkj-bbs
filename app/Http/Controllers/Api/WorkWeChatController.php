@@ -41,14 +41,38 @@ class WorkWeChatController extends Controller
         $config = config('wechat.work.msg_save');
         $corpId = $config['corp_id'];
         $secret = $config['secret'];
+        $private_key_file_path = $config['private_key_file_path'];
         $options = [ // 可选参数
             'proxy_host' => '',
             'proxy_password' => '',
             'timeout' => 10, // 默认超时时间为10s
         ];
 
-        \WxworkFinanceSdk::__construct($corpId, $secret, $options);
-        $res = \WxworkFinanceSdk::getChatData($seq, $limit);
-        logger('企业微信 => 拉取聊天数据 => $res', $res);
+        try {
+            $obj = new \WxworkFinanceSdk($corpId, $secret, $options);
+
+            // 私钥地址
+            $privateKey = file_get_contents($private_key_file_path);
+
+            $chats = json_decode($obj->getChatData(0, 100), true);
+            logger('企业微信 => 拉取聊天数据 => $chats', $chats);
+            value($chats);
+
+//            foreach ($chats['chatdata'] as $val) {
+//                $decryptRandKey = null;
+//                openssl_private_decrypt(base64_decode($val['encrypt_random_key']), $decryptRandKey, $privateKey, OPENSSL_PKCS1_PADDING);
+//                $obj->downloadMedia($sdkFileId, "/tmp/download/文件新名称.后缀");
+//                logger('企业微信 => 拉取聊天数据 => $chats', $chats);
+//            }
+
+
+        }catch(\WxworkFinanceSdkException $e) {
+            $arr = [
+                'getMessage' => $e->getMessage(),
+                'getCode' => $e->getCode(),
+            ];
+            logger('企业微信 => 拉取聊天数据 => WxworkFinanceSdkException', $arr);
+            var_dump($e->getMessage(), $e->getCode());
+        }
     }
 }
